@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="blockResource" load_steps=3 format=3 uid="uid://b5eboy6fybbgk"]
+
+[ext_resource type="Script" path="res://Resources/block_resource.gd" id="1_a28kd"]
+[ext_resource type="Texture2D" uid="uid://dg11hr40cmf2y" path="res://Assets/Img/block_red.png" id="2_5lidk"]
+
+[resource]
+script = ExtResource("1_a28kd")
+texture = ExtResource("2_5lidk")
+health = 0

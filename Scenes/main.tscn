@@ -1,0 +1,65 @@
+[gd_scene load_steps=14 format=3 uid="uid://dxttd417nl3mm"]
+
+[ext_resource type="PackedScene" uid="uid://uva7q8y7lo4g" path="res://Scenes/paddle.tscn" id="1_nnjou"]
+[ext_resource type="Script" path="res://Scripts/main.gd" id="1_wq86m"]
+[ext_resource type="PackedScene" uid="uid://iyhsxqm6xbhx" path="res://Scenes/block.tscn" id="2_yvttr"]
+[ext_resource type="Resource" uid="uid://lxfv4uv1lsf4" path="res://Resources/block_resource1.tres" id="3_15043"]
+[ext_resource type="PackedScene" uid="uid://bxlfx1t5b8ij4" path="res://Scenes/boundary.tscn" id="3_tivmu"]
+[ext_resource type="Resource" uid="uid://d8m5fky20h34" path="res://Resources/block_resource2.tres" id="4_2ofx6"]
+[ext_resource type="Resource" uid="uid://b5eboy6fybbgk" path="res://Resources/block_resource3.tres" id="5_o5vhj"]
+[ext_resource type="Resource" uid="uid://b1ubwppuq8yne" path="res://Resources/block_resource4.tres" id="6_lfgc5"]
+[ext_resource type="Texture2D" uid="uid://cdm6j8v7qfuth" path="res://Assets/Img/Background.png" id="7_1u64o"]
+[ext_resource type="PackedScene" uid="uid://dgfds0c48jke4" path="res://Scenes/ball.tscn" id="9_w70b8"]
+[ext_resource type="Script" path="res://Scripts/ball.gd" id="10_gymor"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_c3s2x"]
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kwah8"]
+size = Vector2(416, 20)
+
+[node name="Main" type="Node2D"]
+texture_filter = 1
+script = ExtResource("1_wq86m")
+scene = ExtResource("2_yvttr")
+resources = Array[Resource]([ExtResource("3_15043"), ExtResource("4_2ofx6"), ExtResource("5_o5vhj"), ExtResource("6_lfgc5")])
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -24)
+scale = Vector2(2.25, 1.4375)
+texture = ExtResource("7_1u64o")
+centered = false
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+zoom = Vector2(2, 2)
+
+[node name="Paddle" parent="." instance=ExtResource("1_nnjou")]
+position = Vector2(288, 296)
+rotation = 4.71239
+scale = Vector2(1, 1)
+collision_layer = 11
+collision_mask = 11
+
+[node name="Ball" parent="." instance=ExtResource("9_w70b8")]
+position = Vector2(288, 272)
+script = ExtResource("10_gymor")
+launchSpeed = 200.0
+
+[node name="Left" parent="." instance=ExtResource("3_tivmu")]
+position = Vector2(64, 152)
+physics_material_override = SubResource("PhysicsMaterial_c3s2x")
+
+[node name="Right" parent="." instance=ExtResource("3_tivmu")]
+position = Vector2(512, 152)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(288, 312)
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_kwah8")
