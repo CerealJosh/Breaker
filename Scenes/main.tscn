@@ -46,7 +46,7 @@ collision_mask = 11
 [node name="Ball" parent="." instance=ExtResource("9_w70b8")]
 position = Vector2(288, 272)
 script = ExtResource("10_gymor")
-launchSpeed = 200.0
+launchSpeed = 300.0
 
 [node name="Left" parent="." instance=ExtResource("3_tivmu")]
 position = Vector2(64, 152)

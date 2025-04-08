@@ -11,7 +11,5 @@ func _ready() -> void:
 	print(direction)
 	linear_velocity += direction * launchSpeed;
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	print(linear_velocity);
+func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
+	linear_velocity = state.linear_velocity.normalized() * absf(launchSpeed);
