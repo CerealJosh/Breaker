@@ -3,6 +3,8 @@ extends Node2D
 @export var scene:PackedScene;
 @export var resources:Array[Resource];
 
+var lives:int = 3;
+
 const boundary:float = 150;
 const row_number:int = 10;
 const block_size:int = 32;
@@ -30,3 +32,9 @@ func generateblock(number: int)-> void:
 				block.queue_free();
 			else:
 				add_child(block);
+
+
+func _on_killzone_body_entered(body: Node2D) -> void:
+		lives-=1;
+		
+		%Ball.resetBall();

@@ -13,6 +13,7 @@ scale = Vector2(0.8, 0.8)
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_awkb5")
+SPEED = 450.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(5.00003, -1.92898e-10)

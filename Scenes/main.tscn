@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dxttd417nl3mm"]
+[gd_scene load_steps=14 format=3 uid="uid://dxttd417nl3mm"]
 
 [ext_resource type="PackedScene" uid="uid://uva7q8y7lo4g" path="res://Scenes/paddle.tscn" id="1_nnjou"]
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_wq86m"]
@@ -11,12 +11,15 @@
 [ext_resource type="Texture2D" uid="uid://cdm6j8v7qfuth" path="res://Assets/Img/Background.png" id="7_1u64o"]
 [ext_resource type="PackedScene" uid="uid://dgfds0c48jke4" path="res://Scenes/ball.tscn" id="9_w70b8"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kwah8"]
+size = Vector2(416, 20)
+
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_c3s2x"]
 friction = 0.0
 bounce = 1.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kwah8"]
-size = Vector2(416, 20)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1aj2y"]
+size = Vector2(584, 20)
 
 [node name="Main" type="Node2D"]
 texture_filter = 1
@@ -44,31 +47,45 @@ collision_mask = 11
 floor_snap_length = 0.0
 
 [node name="Ball" parent="." instance=ExtResource("9_w70b8")]
+unique_name_in_owner = true
 position = Vector2(288, 272)
 collision_layer = 3
 collision_mask = 3
+mass = 90.0
 
-[node name="Left" parent="." instance=ExtResource("3_tivmu")]
-position = Vector2(64, 152)
-physics_material_override = SubResource("PhysicsMaterial_c3s2x")
+[node name="Boundaries" type="Node" parent="."]
 
-[node name="Right" parent="." instance=ExtResource("3_tivmu")]
-position = Vector2(512, 152)
-
-[node name="Bottom" type="StaticBody2D" parent="."]
-position = Vector2(288, 312)
-collision_layer = 8
-collision_mask = 8
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Bottom"]
-position = Vector2(0, -1)
-shape = SubResource("RectangleShape2D_kwah8")
-
-[node name="Top" type="StaticBody2D" parent="."]
+[node name="Top" type="StaticBody2D" parent="Boundaries"]
 position = Vector2(288, 0)
 collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Top"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/Top"]
 position = Vector2(0, -10)
 shape = SubResource("RectangleShape2D_kwah8")
+
+[node name="Bottom" type="StaticBody2D" parent="Boundaries"]
+position = Vector2(288, 312)
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/Bottom"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_kwah8")
+
+[node name="Left" parent="Boundaries" instance=ExtResource("3_tivmu")]
+position = Vector2(64, 152)
+physics_material_override = SubResource("PhysicsMaterial_c3s2x")
+
+[node name="Right" parent="Boundaries" instance=ExtResource("3_tivmu")]
+position = Vector2(512, 152)
+
+[node name="Killzone" type="Area2D" parent="Boundaries"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/Killzone"]
+position = Vector2(305, 342)
+shape = SubResource("RectangleShape2D_1aj2y")
+
+[connection signal="body_entered" from="Boundaries/Killzone" to="." method="_on_killzone_body_entered"]
