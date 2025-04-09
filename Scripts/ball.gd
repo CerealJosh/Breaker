@@ -13,3 +13,9 @@ func _ready() -> void:
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	linear_velocity = state.linear_velocity.normalized() * absf(launchSpeed);
+
+
+func _on_body_entered(body: Node) -> void:
+		if(body.name.begins_with("block")):
+			body._damage();
+		print(typeof(body))

@@ -25,6 +25,7 @@ func generateblock(number: int)-> void:
 			var block:Block = scene.instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE);
 			block.position = Vector2(left_boundary+ i*block_size,boundary - j*block_size/2);
 			block.resource = resources[j%4];
+			block.name = "block_" + str(i)+"_"+str(j);
 			if(randf()* row_number/10>0.5):
 				block.queue_free();
 			else:
