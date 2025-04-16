@@ -62,6 +62,7 @@ launchSpeed = 300.0
 
 [node name="Top" type="StaticBody2D" parent="Boundaries"]
 position = Vector2(288, 0)
+scale = Vector2(1.1, 1)
 collision_layer = 2
 collision_mask = 2
 
@@ -71,6 +72,7 @@ shape = SubResource("RectangleShape2D_kwah8")
 
 [node name="Bottom" type="StaticBody2D" parent="Boundaries"]
 position = Vector2(288, 312)
+scale = Vector2(1.1, 1)
 collision_layer = 8
 collision_mask = 8
 
@@ -79,13 +81,14 @@ position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_kwah8")
 
 [node name="Left" parent="Boundaries" instance=ExtResource("3_tivmu")]
-position = Vector2(64, 152)
+position = Vector2(48, 152)
 physics_material_override = SubResource("PhysicsMaterial_c3s2x")
 
 [node name="Right" parent="Boundaries" instance=ExtResource("3_tivmu")]
-position = Vector2(512, 152)
+position = Vector2(528, 152)
 
 [node name="Killzone" type="Area2D" parent="Boundaries"]
+scale = Vector2(1.1, 1)
 collision_layer = 2
 collision_mask = 2
 
