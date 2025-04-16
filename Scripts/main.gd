@@ -35,6 +35,5 @@ func generateblock(number: int)-> void:
 
 
 func _on_killzone_body_entered(body: Node2D) -> void:
-		lives-=1;
-		
-		%Ball.resetBall();
+	lives-=1;
+	%Ball.resetBall(get_node("Paddle").position.x);
