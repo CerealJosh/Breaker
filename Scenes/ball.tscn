@@ -5,7 +5,7 @@
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_t1wni"]
 friction = 0.0
-bounce = 1e+07
+bounce = 1.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_adtmp"]
 
@@ -15,8 +15,10 @@ physics_material_override = SubResource("PhysicsMaterial_t1wni")
 gravity_scale = 0.0
 contact_monitor = true
 max_contacts_reported = 9999999
+linear_damp_mode = 1
+angular_damp_mode = 1
 script = ExtResource("1_pi6x8")
-launchSpeed = 300.0
+launchSpeed = 350.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -33,4 +35,3 @@ process_callback = 0
 one_shot = true
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="timeout" from="RestartTimer" to="." method="_on_restart_timer_timeout"]
