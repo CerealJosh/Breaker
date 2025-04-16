@@ -5,5 +5,5 @@
 
 [resource]
 script = ExtResource("1_feu7i")
-texture = ExtResource("2_d05md")
+textures = Array[Texture2D]([ExtResource("2_d05md")])
 health = 1

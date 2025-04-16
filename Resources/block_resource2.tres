@@ -1,9 +1,11 @@
-[gd_resource type="Resource" script_class="blockResource" load_steps=3 format=3 uid="uid://d8m5fky20h34"]
+[gd_resource type="Resource" script_class="blockResource" load_steps=5 format=3 uid="uid://d8m5fky20h34"]
 
 [ext_resource type="Script" path="res://Resources/block_resource.gd" id="1_5w6gu"]
 [ext_resource type="Texture2D" uid="uid://db4ehs0ixwr2f" path="res://Assets/Img/block_yellow.png" id="2_mhw60"]
+[ext_resource type="Texture2D" uid="uid://bd2eb04f0j2hs" path="res://Assets/Img/block_yellow2.png" id="3_moh1l"]
+[ext_resource type="Texture2D" uid="uid://drlmm0noub3id" path="res://Assets/Img/block_yellow3.png" id="4_muij2"]
 
 [resource]
 script = ExtResource("1_5w6gu")
-texture = ExtResource("2_mhw60")
+textures = Array[Texture2D]([ExtResource("2_mhw60"), ExtResource("3_moh1l"), ExtResource("4_muij2")])
 health = 3
