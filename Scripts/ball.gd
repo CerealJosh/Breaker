@@ -13,8 +13,10 @@ func _ready() -> void:
 	playing = true;
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
-	if(playing == true):
+	if(playing == true && AutoLoad.gamePlaying == true):
 		linear_velocity = state.linear_velocity.normalized() * absf(launchSpeed);
+	elif(AutoLoad.gamePlaying == false):
+		pass;
 	else:
 		position = InitialPosition;
 		linear_velocity = linear_velocity*0;

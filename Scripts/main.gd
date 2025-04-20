@@ -48,7 +48,8 @@ func _on_killzone_body_entered(body: Node2D) -> void:
 	else:
 		AutoLoad.musicProgress = %Music.get_playback_position();
 		AutoLoad.score =000000;
-		get_tree().reload_current_scene();
+		AutoLoad.gamePlaying = false;
+		%GameOver.visible = true;
 
 func _death() -> void:
 	lives -=1;
@@ -57,3 +58,11 @@ func _death() -> void:
 
 func _format_score(score: int) -> String:
 	return str(score).pad_zeros(8);
+
+func _on_retry_pressed() -> void:
+	get_tree().reload_current_scene();
+	AutoLoad.gamePlaying = true;
+
+
+func _on_quit_pressed() -> void:
+	get_tree().quit();

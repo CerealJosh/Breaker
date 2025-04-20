@@ -17,6 +17,6 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	velocity.y = move_toward(velocity.y,0,0)
-
-	move_and_slide()
-	position.y = clamp(position.y,floaty,floaty)
+	if(AutoLoad.gamePlaying):
+		move_and_slide()
+		position.y = clamp(position.y,floaty,floaty)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dxttd417nl3mm"]
+[gd_scene load_steps=28 format=3 uid="uid://dxttd417nl3mm"]
 
 [ext_resource type="Shader" path="res://Shaders/scan.gdshader" id="1_at7n4"]
 [ext_resource type="PackedScene" uid="uid://uva7q8y7lo4g" path="res://Scenes/paddle.tscn" id="1_nnjou"]
@@ -66,6 +66,15 @@ shader_parameter/scanline_color = Color(1, 1, 1, 0.223529)
 shader_parameter/scanline_spacing = 5.0
 shader_parameter/scanline_width = 0.1
 shader_parameter/edge_softness = 1.0
+
+[sub_resource type="Theme" id="Theme_t7ale"]
+default_font = ExtResource("14_qiiv8")
+default_font_size = 8
+
+[sub_resource type="Theme" id="Theme_frkl2"]
+default_base_scale = 2.0
+default_font = ExtResource("14_qiiv8")
+default_font_size = 8
 
 [node name="Main" type="Node2D"]
 texture_filter = 1
@@ -150,26 +159,26 @@ stream = ExtResource("12_v8g5q")
 
 [node name="Life" type="Sprite2D" parent="Lives"]
 texture_filter = 1
-position = Vector2(544, 8)
+position = Vector2(544, 16)
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("13_u13on")
 
 [node name="Life2" type="Sprite2D" parent="Lives"]
 texture_filter = 1
-position = Vector2(544, 20)
+position = Vector2(544, 28)
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("13_u13on")
 
 [node name="Life3" type="Sprite2D" parent="Lives"]
 texture_filter = 1
-position = Vector2(544, 32)
+position = Vector2(544, 40)
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("13_u13on")
 
 [node name="Score" type="Label" parent="."]
 texture_filter = 1
-offset_left = -4.0
-offset_right = 60.0
+offset_left = -8.0
+offset_right = 56.0
 offset_bottom = 23.0
 text = "00000000"
 label_settings = SubResource("LabelSettings_lbeie")
@@ -183,4 +192,52 @@ scale = Vector2(1.75, 1.33594)
 texture = ExtResource("7_1u64o")
 centered = false
 
+[node name="GameOver" type="Panel" parent="."]
+unique_name_in_owner = true
+visible = false
+z_index = 98
+offset_left = 56.0
+offset_right = 520.0
+offset_bottom = 344.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOver"]
+custom_minimum_size = Vector2(149.865, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Score" type="Label" parent="GameOver/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Score: 000000"
+label_settings = SubResource("LabelSettings_lbeie")
+
+[node name="Retry" type="Button" parent="GameOver/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_t7ale")
+text = "Retry"
+
+[node name="Menu" type="Button" parent="GameOver/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_t7ale")
+text = "Menu"
+
+[node name="Quit" type="Button" parent="GameOver/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_frkl2")
+text = "Quit"
+
 [connection signal="body_entered" from="Boundaries/Killzone" to="." method="_on_killzone_body_entered"]
+[connection signal="pressed" from="GameOver/VBoxContainer/Retry" to="." method="_on_retry_pressed"]
+[connection signal="pressed" from="GameOver/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
