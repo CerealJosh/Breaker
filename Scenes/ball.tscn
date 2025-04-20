@@ -10,7 +10,7 @@ bounce = 1.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_adtmp"]
 
 [node name="Ball" type="RigidBody2D"]
-mass = 300.0
+mass = 0.001
 physics_material_override = SubResource("PhysicsMaterial_t1wni")
 gravity_scale = 0.0
 contact_monitor = true

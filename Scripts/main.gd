@@ -3,7 +3,7 @@ extends Node2D
 @export var scene:PackedScene;
 @export var resources:Array[Resource];
 
-var lives:int = 3;
+var lives:int = 4;
 
 const boundary:float = 150;
 const row_number:int = 10;
@@ -33,7 +33,6 @@ func generateblock(number: int)-> void:
 			block.resource = resources[rse];
 			block.name = "block_" + str(i)+"_"+str(j);
 			mirror.name = "block_" + str(14-i)+"_"+str(j);
-			print(block.name + "   " +mirror.name);
 			if(randf()* row_number/10>0.5):
 				block.queue_free();
 				mirror.queue_free();

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dxttd417nl3mm"]
+[gd_scene load_steps=19 format=3 uid="uid://dxttd417nl3mm"]
 
 [ext_resource type="PackedScene" uid="uid://uva7q8y7lo4g" path="res://Scenes/paddle.tscn" id="1_nnjou"]
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_wq86m"]
@@ -13,6 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://md0voiq4wus4" path="res://Assets/Audio/peak_performance_loopable.ogg" id="12_v8g5q"]
 [ext_resource type="AudioStream" uid="uid://ba5xqwe7kddkr" path="res://Assets/SFX/attack_b.wav" id="12_wddx0"]
 [ext_resource type="Texture2D" uid="uid://cka810j7d6ql" path="res://Assets/Img/Paddle2.png" id="13_u13on"]
+[ext_resource type="FontFile" uid="uid://cqhw4pw3wf31f" path="res://Assets/fonts/PixelOperator8.ttf" id="14_qiiv8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kwah8"]
 size = Vector2(416, 20)
@@ -24,11 +25,17 @@ bounce = 1.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1aj2y"]
 size = Vector2(584, 20)
 
+[sub_resource type="LabelSettings" id="LabelSettings_lbeie"]
+font = ExtResource("14_qiiv8")
+font_size = 8
+outline_size = 1
+outline_color = Color(0, 0.509804, 0.101961, 1)
+
 [node name="Main" type="Node2D"]
 texture_filter = 1
 script = ExtResource("1_wq86m")
 scene = ExtResource("2_yvttr")
-resources = Array[Resource]([ExtResource("3_15043"), ExtResource("4_2ofx6"), ExtResource("5_o5vhj"), ExtResource("6_lfgc5")])
+resources = Array[Resource]([ExtResource("3_15043"), ExtResource("6_lfgc5"), ExtResource("4_2ofx6"), ExtResource("5_o5vhj")])
 
 [node name="Background" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -53,6 +60,7 @@ unique_name_in_owner = true
 position = Vector2(288, 272)
 collision_layer = 3
 collision_mask = 3
+angular_velocity = 18.8496
 launchSpeed = 300.0
 
 [node name="Boundaries" type="Node" parent="."]
@@ -113,5 +121,20 @@ texture_filter = 1
 position = Vector2(544, 20)
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("13_u13on")
+
+[node name="Life3" type="Sprite2D" parent="Lives"]
+texture_filter = 1
+position = Vector2(544, 32)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("13_u13on")
+
+[node name="Score" type="Label" parent="."]
+texture_filter = 1
+offset_left = -4.0
+offset_right = 60.0
+offset_bottom = 23.0
+text = "00000000"
+label_settings = SubResource("LabelSettings_lbeie")
+horizontal_alignment = 2
 
 [connection signal="body_entered" from="Boundaries/Killzone" to="." method="_on_killzone_body_entered"]
