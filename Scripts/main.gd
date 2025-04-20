@@ -20,6 +20,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if(Input.is_key_pressed(KEY_BACKSPACE)):
 		get_tree().reload_current_scene();
+	get_node("Score").text = _format_score(AutoLoad.score);
 
 func generateblock(number: int)-> void:
 	for j in range(row_number):
@@ -46,9 +47,13 @@ func _on_killzone_body_entered(body: Node2D) -> void:
 		%Ball.resetBall(get_node("Paddle").position.x);
 	else:
 		AutoLoad.musicProgress = %Music.get_playback_position();
+		AutoLoad.score =000000;
 		get_tree().reload_current_scene();
 
 func _death() -> void:
 	lives -=1;
 	var livesss = get_node("Lives").get_children();
 	livesss.pop_back().queue_free();
+
+func _format_score(score: int) -> String:
+	return str(score).pad_zeros(8);

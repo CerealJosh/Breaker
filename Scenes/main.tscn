@@ -1,5 +1,6 @@
-[gd_scene load_steps=19 format=3 uid="uid://dxttd417nl3mm"]
+[gd_scene load_steps=26 format=3 uid="uid://dxttd417nl3mm"]
 
+[ext_resource type="Shader" path="res://Shaders/scan.gdshader" id="1_at7n4"]
 [ext_resource type="PackedScene" uid="uid://uva7q8y7lo4g" path="res://Scenes/paddle.tscn" id="1_nnjou"]
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_wq86m"]
 [ext_resource type="PackedScene" uid="uid://iyhsxqm6xbhx" path="res://Scenes/block.tscn" id="2_yvttr"]
@@ -9,11 +10,39 @@
 [ext_resource type="Resource" uid="uid://b5eboy6fybbgk" path="res://Resources/block_resource3.tres" id="5_o5vhj"]
 [ext_resource type="Resource" uid="uid://b1ubwppuq8yne" path="res://Resources/block_resource4.tres" id="6_lfgc5"]
 [ext_resource type="Texture2D" uid="uid://cdm6j8v7qfuth" path="res://Assets/Img/Background.png" id="7_1u64o"]
+[ext_resource type="Shader" path="res://Shaders/main.gdshader" id="7_lpgcv"]
 [ext_resource type="PackedScene" uid="uid://dgfds0c48jke4" path="res://Scenes/ball.tscn" id="9_w70b8"]
 [ext_resource type="AudioStream" uid="uid://md0voiq4wus4" path="res://Assets/Audio/peak_performance_loopable.ogg" id="12_v8g5q"]
 [ext_resource type="AudioStream" uid="uid://ba5xqwe7kddkr" path="res://Assets/SFX/attack_b.wav" id="12_wddx0"]
 [ext_resource type="Texture2D" uid="uid://cka810j7d6ql" path="res://Assets/Img/Paddle2.png" id="13_u13on"]
 [ext_resource type="FontFile" uid="uid://cqhw4pw3wf31f" path="res://Assets/fonts/PixelOperator8.ttf" id="14_qiiv8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bi51w"]
+shader = ExtResource("1_at7n4")
+shader_parameter/scanline_color = Color(1, 1, 1, 0.5)
+shader_parameter/scanline_spacing = 4.0
+shader_parameter/scanline_width = 0.5
+shader_parameter/edge_softness = 0.25
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_vumkb"]
+noise_type = 3
+seed = 489389398
+frequency = 0.2626
+fractal_lacunarity = 8.0
+domain_warp_type = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1admv"]
+noise = SubResource("FastNoiseLite_vumkb")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_677b4"]
+shader = ExtResource("7_lpgcv")
+shader_parameter/glitter_color = Color(1, 0.64, 0.64, 1)
+shader_parameter/glitter_size = 0.2
+shader_parameter/glitter_hardness = 0.35
+shader_parameter/highlight_speed = 1000.0
+shader_parameter/highlight_intensity = 0.25
+shader_parameter/highlight_band = true
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_1admv")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kwah8"]
 size = Vector2(416, 20)
@@ -31,14 +60,23 @@ font_size = 8
 outline_size = 1
 outline_color = Color(0, 0.509804, 0.101961, 1)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fj1pv"]
+shader = ExtResource("1_at7n4")
+shader_parameter/scanline_color = Color(1, 1, 1, 0.223529)
+shader_parameter/scanline_spacing = 5.0
+shader_parameter/scanline_width = 0.1
+shader_parameter/edge_softness = 1.0
+
 [node name="Main" type="Node2D"]
 texture_filter = 1
+material = SubResource("ShaderMaterial_bi51w")
 script = ExtResource("1_wq86m")
 scene = ExtResource("2_yvttr")
 resources = Array[Resource]([ExtResource("3_15043"), ExtResource("6_lfgc5"), ExtResource("4_2ofx6"), ExtResource("5_o5vhj")])
 
 [node name="Background" type="Sprite2D" parent="."]
 texture_filter = 1
+material = SubResource("ShaderMaterial_677b4")
 position = Vector2(0, -24)
 scale = Vector2(2.25, 1.4375)
 texture = ExtResource("7_1u64o")
@@ -136,5 +174,13 @@ offset_bottom = 23.0
 text = "00000000"
 label_settings = SubResource("LabelSettings_lbeie")
 horizontal_alignment = 2
+
+[node name="Scan" type="Sprite2D" parent="."]
+z_index = 99
+material = SubResource("ShaderMaterial_fj1pv")
+position = Vector2(64, 0)
+scale = Vector2(1.75, 1.33594)
+texture = ExtResource("7_1u64o")
+centered = false
 
 [connection signal="body_entered" from="Boundaries/Killzone" to="." method="_on_killzone_body_entered"]

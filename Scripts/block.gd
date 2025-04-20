@@ -25,6 +25,8 @@ func _process(delta: float) -> void:
 func _damage() -> void:
 	flash();
 	get_parent().get_node("HitSound").play();
+	var score = (initial_health*initial_health*initial_health+health*100) - (initial_health-health*10);
+	AutoLoad.score+=score;
 	health -= 1;
 
 func flash()-> void:
