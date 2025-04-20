@@ -2,6 +2,10 @@ extends CharacterBody2D
 
 
 @export var SPEED = 300.0
+var floaty: float;
+
+func  _ready() -> void:
+	floaty = position.y;
 
 func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
@@ -15,3 +19,4 @@ func _physics_process(delta: float) -> void:
 	velocity.y = move_toward(velocity.y,0,0)
 
 	move_and_slide()
+	position.y = clamp(position.y,floaty,floaty)
