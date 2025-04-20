@@ -16,10 +16,10 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if(health<= 0):
-		
 		queue_free();
 	else:
 		%BlockSprite.texture = resource.textures[initial_health-health];
 	
 func _damage() -> void:
+	get_parent().get_node("HitSound").play();
 	health -= 1;

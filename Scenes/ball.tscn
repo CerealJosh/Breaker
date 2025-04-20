@@ -10,7 +10,7 @@ bounce = 1.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_adtmp"]
 
 [node name="Ball" type="RigidBody2D"]
-mass = 0.001
+mass = 300.0
 physics_material_override = SubResource("PhysicsMaterial_t1wni")
 gravity_scale = 0.0
 contact_monitor = true
@@ -26,7 +26,7 @@ scale = Vector2(0.6, 0.6)
 texture = ExtResource("2_8ngud")
 
 [node name="ballshape" type="CollisionShape2D" parent="."]
-scale = Vector2(0.6, 0.6)
+scale = Vector2(0.55, 0.55)
 shape = SubResource("CircleShape2D_adtmp")
 
 [node name="RestartTimer" type="Timer" parent="."]
