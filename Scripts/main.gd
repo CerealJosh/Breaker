@@ -13,6 +13,7 @@ const right_boundary:float = 496;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	%Music.play(AutoLoad.musicProgress);
 	generateblock(14);
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -45,6 +46,7 @@ func _on_killzone_body_entered(body: Node2D) -> void:
 		_death();
 		%Ball.resetBall(get_node("Paddle").position.x);
 	else:
+		AutoLoad.musicProgress = %Music.get_playback_position();
 		get_tree().reload_current_scene();
 
 func _death() -> void:

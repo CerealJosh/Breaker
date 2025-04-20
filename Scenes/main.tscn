@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dxttd417nl3mm"]
+[gd_scene load_steps=17 format=3 uid="uid://dxttd417nl3mm"]
 
 [ext_resource type="PackedScene" uid="uid://uva7q8y7lo4g" path="res://Scenes/paddle.tscn" id="1_nnjou"]
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_wq86m"]
@@ -10,6 +10,7 @@
 [ext_resource type="Resource" uid="uid://b1ubwppuq8yne" path="res://Resources/block_resource4.tres" id="6_lfgc5"]
 [ext_resource type="Texture2D" uid="uid://cdm6j8v7qfuth" path="res://Assets/Img/Background.png" id="7_1u64o"]
 [ext_resource type="PackedScene" uid="uid://dgfds0c48jke4" path="res://Scenes/ball.tscn" id="9_w70b8"]
+[ext_resource type="AudioStream" uid="uid://md0voiq4wus4" path="res://Assets/Audio/peak_performance_loopable.ogg" id="12_v8g5q"]
 [ext_resource type="AudioStream" uid="uid://ba5xqwe7kddkr" path="res://Assets/SFX/attack_b.wav" id="12_wddx0"]
 [ext_resource type="Texture2D" uid="uid://cka810j7d6ql" path="res://Assets/Img/Paddle2.png" id="13_u13on"]
 
@@ -36,7 +37,7 @@ scale = Vector2(2.25, 1.4375)
 texture = ExtResource("7_1u64o")
 centered = false
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera" type="Camera2D" parent="."]
 anchor_mode = 0
 zoom = Vector2(2, 2)
 
@@ -94,6 +95,10 @@ shape = SubResource("RectangleShape2D_1aj2y")
 
 [node name="HitSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("12_wddx0")
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("12_v8g5q")
 
 [node name="Lives" type="Node" parent="."]
 

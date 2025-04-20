@@ -7,10 +7,4 @@ void vertex() {
 void fragment() {
 	vec4 pixelcolor = texture(TEXTURE,UV*2.0);
 	COLOR= pixelcolor;
-	// Called for every pixel the material is visible on.
 }
-
-//void light() {
-	// Called for every pixel for every light affecting the CanvasItem.
-	// Uncomment to replace the default light processing function with this one.
-//}
