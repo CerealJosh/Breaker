@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dxttd417nl3mm"]
+[gd_scene load_steps=16 format=3 uid="uid://dxttd417nl3mm"]
 
 [ext_resource type="PackedScene" uid="uid://uva7q8y7lo4g" path="res://Scenes/paddle.tscn" id="1_nnjou"]
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_wq86m"]
@@ -10,8 +10,8 @@
 [ext_resource type="Resource" uid="uid://b1ubwppuq8yne" path="res://Resources/block_resource4.tres" id="6_lfgc5"]
 [ext_resource type="Texture2D" uid="uid://cdm6j8v7qfuth" path="res://Assets/Img/Background.png" id="7_1u64o"]
 [ext_resource type="PackedScene" uid="uid://dgfds0c48jke4" path="res://Scenes/ball.tscn" id="9_w70b8"]
-[ext_resource type="FontFile" uid="uid://cqhw4pw3wf31f" path="res://Assets/fonts/PixelOperator8.ttf" id="11_7a6pm"]
 [ext_resource type="AudioStream" uid="uid://ba5xqwe7kddkr" path="res://Assets/SFX/attack_b.wav" id="12_wddx0"]
+[ext_resource type="Texture2D" uid="uid://cka810j7d6ql" path="res://Assets/Img/Paddle2.png" id="13_u13on"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kwah8"]
 size = Vector2(416, 20)
@@ -22,10 +22,6 @@ bounce = 1.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1aj2y"]
 size = Vector2(584, 20)
-
-[sub_resource type="Theme" id="Theme_yhgdv"]
-default_font = ExtResource("11_7a6pm")
-default_font_size = 8
 
 [node name="Main" type="Node2D"]
 texture_filter = 1
@@ -96,18 +92,21 @@ collision_mask = 2
 position = Vector2(306, 354)
 shape = SubResource("RectangleShape2D_1aj2y")
 
-[node name="Score" type="Label" parent="."]
-z_index = 4
-texture_filter = 1
-offset_left = 520.0
-offset_right = 569.0
-offset_bottom = 8.0
-size_flags_horizontal = 0
-theme = SubResource("Theme_yhgdv")
-text = "Lives: 3"
-metadata/_edit_use_anchors_ = true
-
 [node name="HitSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("12_wddx0")
+
+[node name="Lives" type="Node" parent="."]
+
+[node name="Life" type="Sprite2D" parent="Lives"]
+texture_filter = 1
+position = Vector2(544, 8)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("13_u13on")
+
+[node name="Life2" type="Sprite2D" parent="Lives"]
+texture_filter = 1
+position = Vector2(544, 20)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("13_u13on")
 
 [connection signal="body_entered" from="Boundaries/Killzone" to="." method="_on_killzone_body_entered"]

@@ -49,5 +49,5 @@ func _on_killzone_body_entered(body: Node2D) -> void:
 
 func _death() -> void:
 	lives -=1;
-	var scoreLabel:Label = get_node("Score");
-	scoreLabel.text = "Lives: "+ str(lives);
+	var livesss = get_node("Lives").get_children();
+	livesss.pop_back().queue_free();
