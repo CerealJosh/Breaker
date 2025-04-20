@@ -16,6 +16,7 @@
 [ext_resource type="AudioStream" uid="uid://ba5xqwe7kddkr" path="res://Assets/SFX/attack_b.wav" id="12_wddx0"]
 [ext_resource type="Texture2D" uid="uid://cka810j7d6ql" path="res://Assets/Img/Paddle2.png" id="13_u13on"]
 [ext_resource type="FontFile" uid="uid://cqhw4pw3wf31f" path="res://Assets/fonts/PixelOperator8.ttf" id="14_qiiv8"]
+[ext_resource type="Theme" uid="uid://diagpslbym23m" path="res://Resources/theme.tres" id="17_w2ymf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bi51w"]
 shader = ExtResource("1_at7n4")
@@ -31,7 +32,7 @@ frequency = 0.2626
 fractal_lacunarity = 8.0
 domain_warp_type = 1
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1admv"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vjyfj"]
 noise = SubResource("FastNoiseLite_vumkb")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_677b4"]
@@ -42,7 +43,7 @@ shader_parameter/glitter_hardness = 0.35
 shader_parameter/highlight_speed = 1000.0
 shader_parameter/highlight_intensity = 0.25
 shader_parameter/highlight_band = true
-shader_parameter/noise_texture = SubResource("NoiseTexture2D_1admv")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_vjyfj")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kwah8"]
 size = Vector2(416, 20)
@@ -54,10 +55,10 @@ bounce = 1.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1aj2y"]
 size = Vector2(584, 20)
 
-[sub_resource type="LabelSettings" id="LabelSettings_lbeie"]
+[sub_resource type="LabelSettings" id="LabelSettings_2nmqv"]
 font = ExtResource("14_qiiv8")
 font_size = 8
-outline_size = 1
+outline_size = 2
 outline_color = Color(0, 0.509804, 0.101961, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fj1pv"]
@@ -67,14 +68,11 @@ shader_parameter/scanline_spacing = 5.0
 shader_parameter/scanline_width = 0.1
 shader_parameter/edge_softness = 1.0
 
-[sub_resource type="Theme" id="Theme_t7ale"]
-default_font = ExtResource("14_qiiv8")
-default_font_size = 8
-
-[sub_resource type="Theme" id="Theme_frkl2"]
-default_base_scale = 2.0
-default_font = ExtResource("14_qiiv8")
-default_font_size = 8
+[sub_resource type="LabelSettings" id="LabelSettings_lbeie"]
+resource_local_to_scene = true
+font = ExtResource("14_qiiv8")
+outline_size = 3
+outline_color = Color(0, 0.509804, 0.101961, 1)
 
 [node name="Main" type="Node2D"]
 texture_filter = 1
@@ -153,6 +151,7 @@ stream = ExtResource("12_wddx0")
 
 [node name="Music" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
+visible = false
 stream = ExtResource("12_v8g5q")
 
 [node name="Lives" type="Node" parent="."]
@@ -181,7 +180,7 @@ offset_left = -8.0
 offset_right = 56.0
 offset_bottom = 23.0
 text = "00000000"
-label_settings = SubResource("LabelSettings_lbeie")
+label_settings = SubResource("LabelSettings_2nmqv")
 horizontal_alignment = 2
 
 [node name="Scan" type="Sprite2D" parent="."]
@@ -201,44 +200,50 @@ offset_right = 520.0
 offset_bottom = 344.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="GameOver"]
-custom_minimum_size = Vector2(149.865, 0)
+custom_minimum_size = Vector2(180, 0)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -74.9325
+offset_top = -34.0
+offset_right = 74.9325
+offset_bottom = 34.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 8
-alignment = 1
 
 [node name="GOScore" type="Label" parent="GameOver/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 16
 text = "Score: 000000"
 label_settings = SubResource("LabelSettings_lbeie")
 
 [node name="Retry" type="Button" parent="GameOver/VBoxContainer"]
 layout_mode = 2
-theme = SubResource("Theme_t7ale")
+theme = ExtResource("17_w2ymf")
 text = "Retry"
 
 [node name="Menu" type="Button" parent="GameOver/VBoxContainer"]
 layout_mode = 2
-theme = SubResource("Theme_t7ale")
+theme = ExtResource("17_w2ymf")
 text = "Menu"
 
 [node name="Quit" type="Button" parent="GameOver/VBoxContainer"]
 layout_mode = 2
-theme = SubResource("Theme_frkl2")
+theme = ExtResource("17_w2ymf")
 text = "Quit"
+
+[node name="startTimer" type="Timer" parent="."]
+process_mode = 3
+autostart = true
 
 [connection signal="body_entered" from="Boundaries/Killzone" to="." method="_on_killzone_body_entered"]
 [connection signal="pressed" from="GameOver/VBoxContainer/Retry" to="." method="_on_retry_pressed"]
+[connection signal="pressed" from="GameOver/VBoxContainer/Menu" to="." method="_on_menu_pressed"]
 [connection signal="pressed" from="GameOver/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="timeout" from="startTimer" to="." method="_on_start_timer_timeout"]

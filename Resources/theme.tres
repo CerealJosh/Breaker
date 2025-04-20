@@ -1,0 +1,47 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://diagpslbym23m"]
+
+[ext_resource type="FontFile" uid="uid://cqhw4pw3wf31f" path="res://Assets/fonts/PixelOperator8.ttf" id="1_lxcl2"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_l5inf"]
+noise_type = 3
+seed = 223234
+frequency = 0.999
+fractal_octaves = 10
+fractal_lacunarity = 1.0
+fractal_gain = 0.9
+fractal_weighted_strength = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_5w1wa"]
+width = 5
+height = 5
+noise = SubResource("FastNoiseLite_l5inf")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_aabpq"]
+texture = SubResource("NoiseTexture2D_5w1wa")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_t7gnq"]
+texture = SubResource("NoiseTexture2D_5w1wa")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+modulate_color = Color(0.475, 1, 0.37, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_miusw"]
+texture = SubResource("NoiseTexture2D_5w1wa")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+modulate_color = Color(0, 0, 0, 1)
+
+[resource]
+default_font = ExtResource("1_lxcl2")
+default_font_size = 16
+Button/styles/hover = SubResource("StyleBoxTexture_aabpq")
+Button/styles/normal = SubResource("StyleBoxTexture_t7gnq")
+Button/styles/pressed = SubResource("StyleBoxTexture_miusw")

@@ -2,8 +2,10 @@ extends Node2D
 
 @export var scene:PackedScene;
 @export var resources:Array[Resource];
+var startTimer:Timer;
 
 var lives:int = 4;
+var randomizerThreshold:float =0.4;
 
 const boundary:float = 150;
 const row_number:int = 10;
@@ -13,7 +15,9 @@ const right_boundary:float = 496;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	%Music.play(AutoLoad.musicProgress);
+	startTimer = get_node("startTimer");
+	get_tree().paused =true;
+	#%Music.play(AutoLoad.musicProgress);
 	generateblock(14);
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -21,6 +25,11 @@ func _process(delta: float) -> void:
 	if(Input.is_key_pressed(KEY_BACKSPACE)):
 		get_tree().reload_current_scene();
 	get_node("Score").text = _format_score(AutoLoad.score);
+	if(get_children().size()<=12):
+		%Ball.resetBall(get_node("Paddle").position.x);
+		if(randomizerThreshold<0.9):
+			randomizerThreshold+=0.1;
+		generateblock(14);
 
 func generateblock(number: int)-> void:
 	for j in range(row_number):
@@ -34,7 +43,7 @@ func generateblock(number: int)-> void:
 			block.resource = resources[rse];
 			block.name = "block_" + str(i)+"_"+str(j);
 			mirror.name = "block_" + str(14-i)+"_"+str(j);
-			if(randf()* row_number/10>0.5):
+			if(randf()* row_number/10>randomizerThreshold):
 				block.queue_free();
 				mirror.queue_free();
 			else:
@@ -66,3 +75,9 @@ func _on_retry_pressed() -> void:
 
 func _on_quit_pressed() -> void:
 	get_tree().quit();
+
+func _on_start_timer_timeout() -> void:
+	get_tree().paused = false; # Replace with function body.
+
+func _on_menu_pressed() -> void:
+	get_tree().change_scene_to_file("res://Scenes/Intro.tscn");

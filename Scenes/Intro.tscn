@@ -1,0 +1,130 @@
+[gd_scene load_steps=12 format=3 uid="uid://15f7shaffi5g"]
+
+[ext_resource type="Script" path="res://Scripts/intro.gd" id="1_5veik"]
+[ext_resource type="Shader" path="res://Shaders/main.gdshader" id="1_6piya"]
+[ext_resource type="FontFile" uid="uid://cqhw4pw3wf31f" path="res://Assets/fonts/PixelOperator8.ttf" id="1_mpjei"]
+[ext_resource type="Texture2D" uid="uid://cdm6j8v7qfuth" path="res://Assets/Img/Background.png" id="2_evc5m"]
+[ext_resource type="Theme" uid="uid://diagpslbym23m" path="res://Resources/theme.tres" id="2_nk0kc"]
+[ext_resource type="Shader" path="res://Shaders/scan.gdshader" id="5_eshl1"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_eaa8t"]
+noise_type = 3
+seed = 489389398
+frequency = 0.2626
+fractal_lacunarity = 8.0
+domain_warp_type = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1admv"]
+noise = SubResource("FastNoiseLite_eaa8t")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6crpu"]
+shader = ExtResource("1_6piya")
+shader_parameter/glitter_color = Color(1, 0.64, 0.64, 1)
+shader_parameter/glitter_size = 0.2
+shader_parameter/glitter_hardness = 0.35
+shader_parameter/highlight_speed = 1000.0
+shader_parameter/highlight_intensity = 0.25
+shader_parameter/highlight_band = true
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_1admv")
+
+[sub_resource type="LabelSettings" id="LabelSettings_56p6u"]
+resource_local_to_scene = true
+font = ExtResource("1_mpjei")
+font_size = 128
+outline_size = 10
+outline_color = Color(0, 0.509804, 0.101961, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lcfjr"]
+shader = ExtResource("5_eshl1")
+shader_parameter/scanline_color = Color(1, 1, 1, 0.223529)
+shader_parameter/scanline_spacing = 5.0
+shader_parameter/scanline_width = 0.1
+shader_parameter/edge_softness = 1.0
+
+[node name="Intro" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5veik")
+
+[node name="Background" type="Sprite2D" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_6crpu")
+position = Vector2(0, -1.90735e-06)
+scale = Vector2(4.5, 2.53125)
+texture = ExtResource("2_evc5m")
+centered = false
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -74.9325
+offset_top = -34.0
+offset_right = 74.9325
+offset_bottom = 34.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 100
+
+[node name="Title" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 16
+text = "Breaker"
+label_settings = SubResource("LabelSettings_56p6u")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/separation = 8
+
+[node name="Start" type="Button" parent="Panel/VBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme = ExtResource("2_nk0kc")
+theme_override_font_sizes/font_size = 32
+text = "Start
+"
+
+[node name="Options" type="Button" parent="Panel/VBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme = ExtResource("2_nk0kc")
+theme_override_font_sizes/font_size = 32
+text = "Options"
+
+[node name="Quit" type="Button" parent="Panel/VBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme = ExtResource("2_nk0kc")
+theme_override_font_sizes/font_size = 32
+text = "Quit"
+
+[node name="Scan" type="Sprite2D" parent="."]
+z_index = 99
+material = SubResource("ShaderMaterial_lcfjr")
+position = Vector2(120, 0)
+scale = Vector2(3.5625, 2.53125)
+texture = ExtResource("2_evc5m")
+centered = false
+
+[connection signal="pressed" from="Panel/VBoxContainer/VBoxContainer2/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/VBoxContainer2/Quit" to="." method="_on_quit_pressed"]
